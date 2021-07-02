@@ -24,14 +24,14 @@ router.route("/categoria/getAll").get((req, response) => {
   modelCategoria.getCategoria().then((data) => {
     console.log(data, "AQUI");
   });
-  DB.query("SELECT * FROM categoria", (err, data) => {
+  DB.query("SELECT * FROM categoria WHERE cat_est = 1", (err, data) => {
     response.json(data);
   });
 });
 
 router.route("/categoria/:id").get((req, res) => {
   DB.query(
-    `SELECT * FROM categoria WHERE cat_id = ${req.params.id}`,
+    `SELECT * FROM categoria WHERE cat_id = ${req.params.id} AND cat_est = 1`,
     (err, data) => {
       res.json(data);
     }
@@ -64,7 +64,7 @@ router.route("/categoria/update/:id").put((req, res) => {
 
 router.route("/categoria/delete/:id").delete((req, res) => {
   DB.query(
-    `UPDATE categoria SET cat_est = 0 WHERE cat_id = ${req.params.id}`,
+    `UPDATE categoria SET cat_est = 0 WHERE cat_id = ${req.params.id} cat_est <> 0`,
     (err, data) => {
       if (err) {
         throw console.log(err);
