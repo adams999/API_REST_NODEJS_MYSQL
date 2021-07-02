@@ -1,0 +1,46 @@
+-Instalar node.js
+
+Creamos un proyecto en node con el siguiente comando 
+npm init -y (se crea el package.json)
+
+
+abrir package.json y agregar lo siguiente 
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon api.js" 
+  },
+  "dependencies":{
+    "body-parser": "^1.19.0", (analiza el cuerpo de cada una de las peticiones http)
+    "cors": "^2.8.5", 		(gestiona los encabezados de las peticiones http para servidores)
+    "express": "^4.17.1",  	(servidor en js)
+     "mysql":"^2.18.1"	(conexion a base de datos conecta a varias bd sql)
+  },
+  "devDependencies":{
+    "nodemon": "^2.0.9" 	(aplica los cambios del servidor automaticamente y reinicia el servidor en tiempo real)
+  },
+
+
+
+
+se crea un archivo de conexion 
+con la siguiente configuracion
+
+const config = {
+  user: "root",
+  password: "",
+  server: "localhost",
+  database: "api_rest_nodejs_mysql",
+  options: {
+    trustedconnection: false,
+    enableAirthAbort: true,
+    encrypt: false,
+    //instancename: ''   En caso se tenga alguna instancia
+  },
+
+module.exports = config; //se exporta par apoderla usar en los demas archivos js
+};
+
+
+
+seguidamente se crean carpetas para generar el modelo de cada uno de las tablas y se exporta las funciones para poderlas usar en el archivo api.js
